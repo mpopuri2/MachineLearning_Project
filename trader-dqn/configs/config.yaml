@@ -1,0 +1,58 @@
+symbols: ["AAPL"]
+interval: "1d"        # Hourly data = more samples, richer signal
+
+train_period:
+  start: "2023-01-01"
+  end:   "2024-12-31"
+
+val_period:
+  start: "2025-01-01"
+  end:   "2025-09-30"
+
+features:
+  window: 30                # larger context window for hourly data
+  indicators: [rsi, macd, stoch, bbands, obv, ema, atr]
+  normalize: true
+
+env:
+  initial_cash: 100000
+  max_position: 1
+  transaction_cost_bp: 5     # 0.05%
+  reward: "risk_adjusted"    # uses volatility-adjusted PnL
+  stop_loss_pct: 0.05
+  take_profit_pct: 0.10
+
+agent:
+  fast_replay: false          # CPU stable — normal replay is fine
+  mixed_precision: false
+
+  gamma: 0.99
+  lr: 0.00025                # slightly lower LR → smoother updates
+  batch_size: 64             # better gradient estimate
+  buffer_size: 150000
+  learn_start: 3000          # quick warmup before learning
+
+  target_update_every: 5000
+  tau: 0.005                 # soft target update for stability
+  hidden_dims: [128, 256]    # smaller → faster CPU training
+  dueling: true
+  double_dqn: true
+
+  # Epsilon-greedy schedule
+  epsilon_start: 1.0
+  epsilon_end: 0.05
+  epsilon_decay_steps: 50000 # longer decay = smoother exploration
+
+training:
+  max_steps: 200000          # more total updates (hourly data benefits)
+  eval_every_steps: 20000
+  checkpoint_every_steps: 50000
+  seed: 42
+
+backtest:
+  slippage_bp: 1
+
+live:
+  symbol: "SPY"
+  qty: 1
+  poll_seconds: 60

@@ -1,0 +1,13 @@
+pandas
+numpy
+yfinance
+pytz
+python-dateutil
+scikit-learn
+matplotlib
+plotly
+torch
+pydantic
+PyYAML
+ta
+requests
