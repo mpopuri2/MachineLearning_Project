@@ -10,7 +10,7 @@ The system integrates feature extraction, training optimization, and evaluation 
 ## 🧩 Key Highlights
 
 - 🧮 **Pipelines-Driven Architecture:**  
-  Every component — from data ingestion to environment simulation — flows through modular pipelines for feature generation, transformation, and optimization.
+  Every component - from data ingestion to environment simulation - flows through modular pipelines for feature generation, transformation, and optimization.
 
 - ⚙️ **Advanced Optimization Pipelines:**  
   Implements Dueling DQN with Double Q-Learning, soft target updates, and adaptive epsilon decay for stable convergence.
